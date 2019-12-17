@@ -1,0 +1,126 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  basicTimeStep 8
+  contactProperties [
+    ContactProperties {
+      material2 "dumbbell"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.35494184142460405 0.881757552384534 0.3106765327779795 4.70033858647005
+  position -0.9699167313603445 0.919226631320069 -0.016239197642422806
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+  castShadows FALSE
+}
+Floor {
+  size 1 1
+}
+Solid {
+  translation 0 0.05 0.5
+  children [
+    DEF WALL_GEOMETRY Shape {
+      appearance PBRAppearance {
+        baseColor 0.203922 0.396078 0.643137
+        roughness 0.5
+      }
+      geometry Box {
+        size 1 0.15 0.025
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0 0.05 -0.5
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(3)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0.5 0.05 0
+  rotation 0 1 0 1.5705
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(4)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation -0.5 0.05 0
+  rotation 0 1 0 1.5705
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(5)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0 0.25 0
+  rotation 1 0 0 1.5708
+  children [
+    DEF G0 Group {
+      children [
+        Transform {
+          translation 0 -0.05 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0.05 0
+          children [
+            DEF BALL_GEOMETRY Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance PBRAppearance {
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(1)"
+  contactMaterial "dumbbell"
+  boundingObject USE G0
+  physics Physics {
+    density -1
+    mass 2
+    centerOfMass [
+      0 0.01 0
+    ]
+  }
+}
