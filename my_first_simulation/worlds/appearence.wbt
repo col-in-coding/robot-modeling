@@ -1,0 +1,93 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.7067418477262731 0.5649499293088482 0.42584919636695384 4.633788774005344
+  position -0.28534051921692527 1.2103325711005555 0.0807276148498731
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+  castShadows FALSE
+}
+Floor {
+  size 1 1
+}
+WoodenBox {
+  translation 0.29 0.05 -0.34
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation -0.23 0.05 -0.33
+  name "wooden box(2)"
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation 0 0.05 0.27
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+}
+Solid {
+  translation 0 0.05 0.5
+  children [
+    DEF WALL_GEOMETRY Shape {
+      appearance PBRAppearance {
+        baseColor 0.203922 0.396078 0.643137
+        roughness 0.5
+      }
+      geometry Box {
+        size 1 0.15 0.025
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0 0.05 -0.5
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(3)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0.5 0.05 0
+  rotation 0 1 0 1.5705
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(4)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation -0.5 0.05 0
+  rotation 0 1 0 1.5705
+  children [
+    USE WALL_GEOMETRY
+  ]
+  name "solid(5)"
+  boundingObject USE WALL_GEOMETRY
+}
+Solid {
+  translation 0 0.5 0
+  children [
+    DEF BALL_GEOMETRY Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "/home/colin/webots/projects/default/worlds/textures/red_brick_wall.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.1
+      }
+    }
+  ]
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
