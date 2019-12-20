@@ -1,0 +1,562 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "dog"
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.018765056588851164 0.9963943858916189 0.08274116517720131 3.513010911991556
+  position -0.9988492413246295 0.6245263348358912 -2.7529876414509142
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 -0.3 0
+  rotation 1 0 0 4.692820414042842e-06
+  floorSize 2 2
+}
+DEF C_DOT_GO Robot {
+  translation 0 0.12 0
+  children [
+    DEF HIP3 Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor -0.2 0 -0.1
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "hip3x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "hip3z"
+        }
+      ]
+      endPoint Solid {
+        translation -0.2 0 -0.1
+        children [
+          DEF KNEE3 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.15 0
+            }
+            device [
+              RotationalMotor {
+                name "knee3"
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.15 0
+              rotation 0 0 1 0
+              children [
+                DEF KNEE1_GROUP Group {
+                  children [
+                    DEF FOOT Transform {
+                      translation 0 -0.15 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.180392 0.203922 0.211765
+                            roughness 1
+                            metalness 0
+                          }
+                          geometry Sphere {
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                    DEF SPRING Transform {
+                      translation 0 -0.075 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                          }
+                          geometry Cylinder {
+                            height 0.15
+                            radius 0.015
+                          }
+                        }
+                      ]
+                    }
+                    DEF KNEE Transform {
+                      rotation 1 0 0 1.57
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.8 0 0
+                            roughness 1
+                          }
+                          geometry Cylinder {
+                            height 0.03
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE1_GROUP
+              physics Physics {
+              }
+            }
+          }
+          DEF HIP3_GROUP Group {
+            children [
+              DEF FEMUR_TRANS Transform {
+                translation 0 -0.075 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                    }
+                    geometry Cylinder {
+                      height 0.15
+                      radius 0.015
+                    }
+                  }
+                ]
+              }
+              DEF HIP1_TRANS Transform {
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.8 0 0
+                      roughness 1
+                      metalness 0
+                    }
+                    geometry Sphere {
+                      radius 0.03
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+        name "hip3"
+        boundingObject USE HIP3_GROUP
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP2 Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor -0.2 0 0.1
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "hip2x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "hip2z"
+        }
+      ]
+      endPoint Solid {
+        translation -0.2 0 0.1
+        children [
+          DEF KNEE2 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.15 0
+            }
+            device [
+              RotationalMotor {
+                name "knee2"
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.15 0
+              rotation 0 0 1 0
+              children [
+                DEF KNEE2_GROUP Group {
+                  children [
+                    DEF FOOT Transform {
+                      translation 0 -0.15 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.180392 0.203922 0.211765
+                            roughness 1
+                            metalness 0
+                          }
+                          geometry Sphere {
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                    DEF SPRING Transform {
+                      translation 0 -0.075 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                          }
+                          geometry Cylinder {
+                            height 0.15
+                            radius 0.015
+                          }
+                        }
+                      ]
+                    }
+                    DEF KNEE Transform {
+                      rotation 1 0 0 1.57
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.8 0 0
+                            roughness 1
+                          }
+                          geometry Cylinder {
+                            height 0.03
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE2_GROUP
+              physics Physics {
+              }
+            }
+          }
+          DEF HIP2_GROUP Group {
+            children [
+              DEF FEMUR_TRANS Transform {
+                translation 0 -0.075 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                    }
+                    geometry Cylinder {
+                      height 0.15
+                      radius 0.015
+                    }
+                  }
+                ]
+              }
+              DEF HIP2_TRANS Transform {
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.8 0 0
+                      roughness 1
+                      metalness 0
+                    }
+                    geometry Sphere {
+                      radius 0.03
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+        name "hip2"
+        boundingObject USE HIP2_GROUP
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP1 Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor 0.2 0 -0.1
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "hip1x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "hip1z"
+        }
+      ]
+      endPoint Solid {
+        translation 0.2 0 -0.1
+        children [
+          DEF KNEE1 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.15 0
+            }
+            device [
+              RotationalMotor {
+                name "knee1"
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.15 0
+              rotation 0 0 1 0
+              children [
+                DEF KNEE1_GROUP Group {
+                  children [
+                    DEF FOOT Transform {
+                      translation 0 -0.15 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.180392 0.203922 0.211765
+                            roughness 1
+                            metalness 0
+                          }
+                          geometry Sphere {
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                    DEF SPRING Transform {
+                      translation 0 -0.075 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                          }
+                          geometry Cylinder {
+                            height 0.15
+                            radius 0.015
+                          }
+                        }
+                      ]
+                    }
+                    DEF KNEE Transform {
+                      rotation 1 0 0 1.57
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.8 0 0
+                            roughness 1
+                          }
+                          geometry Cylinder {
+                            height 0.03
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE1_GROUP
+              physics Physics {
+              }
+            }
+          }
+          DEF HIP1_GROUP Group {
+            children [
+              DEF FEMUR_TRANS Transform {
+                translation 0 -0.075 0
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                    }
+                    geometry Cylinder {
+                      height 0.15
+                      radius 0.015
+                    }
+                  }
+                ]
+              }
+              DEF HIP1_TRANS Transform {
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.8 0 0
+                      roughness 1
+                      metalness 0
+                    }
+                    geometry Sphere {
+                      radius 0.03
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+        name "hip1"
+        boundingObject USE HIP1_GROUP
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP0 Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor 0.2 0 0.1
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "hip0x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "hip0z"
+        }
+      ]
+      endPoint Solid {
+        translation 0.2 0 0.1
+        children [
+          DEF KNEE0 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.15 0
+            }
+            device [
+              RotationalMotor {
+                name "knee0"
+              }
+            ]
+            endPoint Solid {
+              translation 0 -0.15 0
+              rotation 0 0 1 0
+              children [
+                DEF KNEE0_GROUP Group {
+                  children [
+                    DEF KNEE Transform {
+                      rotation 1 0 0 1.57
+                      children [
+                        DEF KNEE_SHAPE Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.8 0 0
+                            roughness 1
+                          }
+                          geometry Cylinder {
+                            height 0.03
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                    DEF FOOT0 Transform {
+                      translation 0 -0.15 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            baseColor 0.180392 0.203922 0.211765
+                            roughness 1
+                            metalness 0
+                          }
+                          geometry Sphere {
+                            radius 0.03
+                          }
+                        }
+                      ]
+                    }
+                    DEF SPRING Transform {
+                      translation 0 -0.075 0
+                      rotation 0 0 1 0
+                      children [
+                        Shape {
+                          appearance PBRAppearance {
+                            roughness 1
+                          }
+                          geometry Cylinder {
+                            height 0.15
+                            radius 0.015
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE0_GROUP
+              physics Physics {
+              }
+            }
+          }
+          DEF HIP0_GROUP Group {
+            children [
+              DEF FEMUR_TRANS Transform {
+                translation 0 -0.075 0
+                children [
+                  Shape {
+                    appearance DEF LEG_APPEARANCE PBRAppearance {
+                      baseColor 0.827451 0.843137 0.811765
+                    }
+                    geometry Cylinder {
+                      height 0.15
+                      radius 0.015
+                    }
+                  }
+                ]
+              }
+              DEF HIP_TRANS Transform {
+                children [
+                  DEF HIP_SHAPE Shape {
+                    appearance DEF JOINT_APPEARANCE PBRAppearance {
+                      baseColor 0.8 0 0
+                      roughness 1
+                      metalness 0
+                    }
+                    geometry Sphere {
+                      radius 0.03
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+        name "hip0"
+        boundingObject USE HIP0_GROUP
+        physics Physics {
+          centerOfMass [
+            0 0 0
+          ]
+        }
+      }
+    }
+    DEF BODY_SHAPE Shape {
+      appearance DEF BODY_APPEARANCE PBRAppearance {
+        baseColor 0.756863 0.490196 0.0666667
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.4 0.05 0.2
+      }
+    }
+  ]
+  name "c_dot_go"
+  contactMaterial "dog"
+  boundingObject USE BODY_SHAPE
+  physics Physics {
+  }
+}
+DEF WORKBANCH Solid {
+  translation 0 -0.1 0
+  children [
+    DEF WORKBANCH_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0.333333 0.341176 0.32549
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.4
+        radius 0.06
+      }
+    }
+  ]
+  boundingObject USE WORKBANCH_SHAPE
+  physics Physics {
+    density 2000
+  }
+}
