@@ -7,15 +7,15 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.018765056588851164 0.9963943858916189 0.08274116517720131 3.513010911991556
-  position -0.9988492413246295 0.6245263348358912 -2.7529876414509142
+  orientation -0.051193113180623945 -0.9779897064147581 -0.20227555292138302 2.6863154241917035
+  position -0.7077352094465726 0.4502313470822795 -1.209832907331472
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  translation 0 -0.3 0
+  translation 0 -0.3 0.19
   rotation 1 0 0 4.692820414042842e-06
   floorSize 2 2
 }
@@ -63,7 +63,7 @@ DEF C_DOT_GO Robot {
                         Shape {
                           appearance PBRAppearance {
                             baseColor 0.180392 0.203922 0.211765
-                            roughness 1
+                            roughness 0.5
                             metalness 0
                           }
                           geometry Sphere {
@@ -77,6 +77,8 @@ DEF C_DOT_GO Robot {
                       children [
                         Shape {
                           appearance PBRAppearance {
+                            baseColor 0 0.8 0
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.15
@@ -91,7 +93,7 @@ DEF C_DOT_GO Robot {
                         Shape {
                           appearance PBRAppearance {
                             baseColor 0.8 0 0
-                            roughness 1
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.03
@@ -115,6 +117,8 @@ DEF C_DOT_GO Robot {
                 children [
                   Shape {
                     appearance PBRAppearance {
+                      baseColor 0 0.8 0
+                      roughness 0.5
                     }
                     geometry Cylinder {
                       height 0.15
@@ -128,8 +132,7 @@ DEF C_DOT_GO Robot {
                   Shape {
                     appearance PBRAppearance {
                       baseColor 0.8 0 0
-                      roughness 1
-                      metalness 0
+                      roughness 0.5
                     }
                     geometry Sphere {
                       radius 0.03
@@ -187,7 +190,7 @@ DEF C_DOT_GO Robot {
                         Shape {
                           appearance PBRAppearance {
                             baseColor 0.180392 0.203922 0.211765
-                            roughness 1
+                            roughness 0.5
                             metalness 0
                           }
                           geometry Sphere {
@@ -201,6 +204,8 @@ DEF C_DOT_GO Robot {
                       children [
                         Shape {
                           appearance PBRAppearance {
+                            baseColor 0 0.8 0
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.15
@@ -239,6 +244,8 @@ DEF C_DOT_GO Robot {
                 children [
                   Shape {
                     appearance PBRAppearance {
+                      baseColor 0 0.8 0
+                      roughness 0.5
                     }
                     geometry Cylinder {
                       height 0.15
@@ -252,8 +259,7 @@ DEF C_DOT_GO Robot {
                   Shape {
                     appearance PBRAppearance {
                       baseColor 0.8 0 0
-                      roughness 1
-                      metalness 0
+                      roughness 0.5
                     }
                     geometry Sphere {
                       radius 0.03
@@ -311,7 +317,7 @@ DEF C_DOT_GO Robot {
                         Shape {
                           appearance PBRAppearance {
                             baseColor 0.180392 0.203922 0.211765
-                            roughness 1
+                            roughness 0.5
                             metalness 0
                           }
                           geometry Sphere {
@@ -325,6 +331,8 @@ DEF C_DOT_GO Robot {
                       children [
                         Shape {
                           appearance PBRAppearance {
+                            baseColor 0 0.8 0
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.15
@@ -363,6 +371,8 @@ DEF C_DOT_GO Robot {
                 children [
                   Shape {
                     appearance PBRAppearance {
+                      baseColor 0 0.8 0
+                      roughness 0.5
                     }
                     geometry Cylinder {
                       height 0.15
@@ -376,8 +386,7 @@ DEF C_DOT_GO Robot {
                   Shape {
                     appearance PBRAppearance {
                       baseColor 0.8 0 0
-                      roughness 1
-                      metalness 0
+                      roughness 0.5
                     }
                     geometry Sphere {
                       radius 0.03
@@ -435,7 +444,7 @@ DEF C_DOT_GO Robot {
                         DEF KNEE_SHAPE Shape {
                           appearance PBRAppearance {
                             baseColor 0.8 0 0
-                            roughness 1
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.03
@@ -450,8 +459,8 @@ DEF C_DOT_GO Robot {
                         Shape {
                           appearance PBRAppearance {
                             baseColor 0.180392 0.203922 0.211765
-                            roughness 1
-                            metalness 0
+                            roughness 0.5
+                            metalness 0.5
                           }
                           geometry Sphere {
                             radius 0.03
@@ -465,7 +474,8 @@ DEF C_DOT_GO Robot {
                       children [
                         Shape {
                           appearance PBRAppearance {
-                            roughness 1
+                            baseColor 0 0.8 0
+                            roughness 0.5
                           }
                           geometry Cylinder {
                             height 0.15
@@ -489,7 +499,8 @@ DEF C_DOT_GO Robot {
                 children [
                   Shape {
                     appearance DEF LEG_APPEARANCE PBRAppearance {
-                      baseColor 0.827451 0.843137 0.811765
+                      baseColor 0 0.8 0
+                      roughness 0.5
                     }
                     geometry Cylinder {
                       height 0.15
@@ -503,8 +514,7 @@ DEF C_DOT_GO Robot {
                   DEF HIP_SHAPE Shape {
                     appearance DEF JOINT_APPEARANCE PBRAppearance {
                       baseColor 0.8 0 0
-                      roughness 1
-                      metalness 0
+                      roughness 0.5
                     }
                     geometry Sphere {
                       radius 0.03
