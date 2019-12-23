@@ -1,5 +1,6 @@
 #VRML_SIM R2019b utf8
 WorldInfo {
+  basicTimeStep 8
   contactProperties [
     ContactProperties {
       material2 "dog"
@@ -7,8 +8,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.051193113180623945 -0.9779897064147581 -0.20227555292138302 2.6863154241917035
-  position -0.7077352094465726 0.4502313470822795 -1.209832907331472
+  orientation -0.605313167710391 -0.7742009371548967 -0.18495642163734569 0.7834707522563776
+  position -0.6690651673493168 0.5995843404683415 1.2415986273774724
 }
 TexturedBackground {
 }
@@ -20,7 +21,7 @@ RectangleArena {
   floorSize 2 2
 }
 DEF C_DOT_GO Robot {
-  translation 0 0.12 0
+  translation 0 0.12 0.01
   children [
     DEF HIP3 Hinge2Joint {
       jointParameters HingeJointParameters {
@@ -29,11 +30,17 @@ DEF C_DOT_GO Robot {
       jointParameters2 JointParameters {
       }
       device [
+        PositionSensor {
+          name "hip3x_pos"
+        }
         RotationalMotor {
           name "hip3x"
         }
       ]
       device2 [
+        PositionSensor {
+          name "hip3z_pos"
+        }
         RotationalMotor {
           name "hip3z"
         }
@@ -47,6 +54,9 @@ DEF C_DOT_GO Robot {
               anchor 0 -0.15 0
             }
             device [
+              PositionSensor {
+                name "knee3_pos"
+              }
               RotationalMotor {
                 name "knee3"
               }
@@ -156,11 +166,17 @@ DEF C_DOT_GO Robot {
       jointParameters2 JointParameters {
       }
       device [
+        PositionSensor {
+          name "hip2x_pos"
+        }
         RotationalMotor {
           name "hip2x"
         }
       ]
       device2 [
+        PositionSensor {
+          name "hip2z_pos"
+        }
         RotationalMotor {
           name "hip2z"
         }
@@ -174,6 +190,9 @@ DEF C_DOT_GO Robot {
               anchor 0 -0.15 0
             }
             device [
+              PositionSensor {
+                name "knee2_pos"
+              }
               RotationalMotor {
                 name "knee2"
               }
@@ -283,11 +302,17 @@ DEF C_DOT_GO Robot {
       jointParameters2 JointParameters {
       }
       device [
+        PositionSensor {
+          name "hip1x_pos"
+        }
         RotationalMotor {
           name "hip1x"
         }
       ]
       device2 [
+        PositionSensor {
+          name "hip1z_pos"
+        }
         RotationalMotor {
           name "hip1z"
         }
@@ -301,6 +326,9 @@ DEF C_DOT_GO Robot {
               anchor 0 -0.15 0
             }
             device [
+              PositionSensor {
+                name "knee1_pos"
+              }
               RotationalMotor {
                 name "knee1"
               }
@@ -410,11 +438,17 @@ DEF C_DOT_GO Robot {
       jointParameters2 JointParameters {
       }
       device [
+        PositionSensor {
+          name "hip0x_pos"
+        }
         RotationalMotor {
           name "hip0x"
         }
       ]
       device2 [
+        PositionSensor {
+          name "hip0z_pos"
+        }
         RotationalMotor {
           name "hip0z"
         }
@@ -428,6 +462,9 @@ DEF C_DOT_GO Robot {
               anchor 0 -0.15 0
             }
             device [
+              PositionSensor {
+                name "knee0_pos"
+              }
               RotationalMotor {
                 name "knee0"
               }
@@ -537,8 +574,8 @@ DEF C_DOT_GO Robot {
     DEF BODY_SHAPE Shape {
       appearance DEF BODY_APPEARANCE PBRAppearance {
         baseColor 0.756863 0.490196 0.0666667
-        roughness 1
-        metalness 0
+        roughness 0.5
+        metalness 0.1
       }
       geometry Box {
         size 0.4 0.05 0.2
@@ -550,22 +587,53 @@ DEF C_DOT_GO Robot {
   boundingObject USE BODY_SHAPE
   physics Physics {
   }
+  controller "init_testing"
 }
 DEF WORKBANCH Solid {
-  translation 0 -0.1 0
+  translation 0 -0.08 0
   children [
-    DEF WORKBANCH_SHAPE Shape {
-      appearance PBRAppearance {
-        baseColor 0.333333 0.341176 0.32549
-        metalness 0
-      }
-      geometry Cylinder {
-        height 0.4
-        radius 0.06
-      }
+    DEF WORKBANCH_GROUP Group {
+      children [
+        DEF TOP Transform {
+          translation 0 0.16 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.333333 0.341176 0.32549
+              }
+              geometry Box {
+                size 0.2 0.02 0.4
+              }
+            }
+          ]
+        }
+        DEF BOTTOM Transform {
+          translation 0 -0.2 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.333333 0.341176 0.32549
+              }
+              geometry Box {
+                size 0.5 0.05 0.5
+              }
+            }
+          ]
+        }
+        DEF CYLINDER Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0.341176 0.32549
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.34
+            radius 0.06
+          }
+        }
+      ]
     }
   ]
-  boundingObject USE WORKBANCH_SHAPE
+  boundingObject USE WORKBANCH_GROUP
   physics Physics {
     density 2000
   }
