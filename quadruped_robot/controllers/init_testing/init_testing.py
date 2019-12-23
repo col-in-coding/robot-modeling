@@ -5,6 +5,10 @@ import math
 import numpy as np
 
 def setPositions(motors, theta, posSensors):
+  """
+  set joint positions
+  not feedback control
+  """
   delta = 0.018
   for i in range(len(motors)):
     motors[i].setPosition(theta[i])
