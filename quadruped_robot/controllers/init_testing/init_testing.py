@@ -4,12 +4,13 @@ from controller import Robot
 import math
 import numpy as np
 
+
 def setPositions(motors, theta, posSensors):
   """
   set joint positions
   not feedback control
   """
-  delta = 0.018
+  delta = 0.01
   for i in range(len(motors)):
     motors[i].setPosition(theta[i])
 
@@ -20,12 +21,20 @@ def setPositions(motors, theta, posSensors):
       target = theta[i]
       
       if math.fabs(effective - target) > delta:
-        print('effective: ', effective)
-        print('target', target)
+        # print('i th part: ', i)
+        # print('error: ', effective - target)
         checked = False
     if checked:
       break
-    
+
+
+def setVelocity(motors, v):
+  """
+  v: rad/s
+  """ 
+  for i in range(len(motors)):
+    motors[i].setVelocity(v)
+
 
 # create the Robot instance.
 robot = Robot()
@@ -57,19 +66,20 @@ thetaInit = np.array([
   0, 45/180 * math.pi, -90/180 * math.pi
 ])
 setPositions(motors, thetaInit, posSensors)
+setVelocity(motors, 10)
 
 isLeftStepUp = True
 leftStepUp = [
   0, -45/180 * math.pi, 90/180 * math.pi,
-  0, -60/180 * math.pi, 120/180 * math.pi,
-  0, 60/180 * math.pi, -120/180 * math.pi,
+  0, -55/180 * math.pi, 110/180 * math.pi,
+  0, 55/180 * math.pi, -110/180 * math.pi,
   0, 45/180 * math.pi, -90/180 * math.pi
 ]
 rightStepUp = [
-  0, -60/180 * math.pi, 120/180 * math.pi,
+  0, -55/180 * math.pi, 110/180 * math.pi,
   0, -45/180 * math.pi, 90/180 * math.pi,
   0, 45/180 * math.pi, -90/180 * math.pi,
-  0, 60/180 * math.pi, -120/180 * math.pi
+  0, 55/180 * math.pi, -110/180 * math.pi
 ]
 
 
