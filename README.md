@@ -9,4 +9,5 @@ Python
 Webots
 
 ## Hardwares
-Arduino
+Arduino Uno\
+Quadruped Robot
