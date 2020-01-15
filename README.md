@@ -1,13 +1,14 @@
 # robot-modeling
 Quadruped Robot Design
 
-## Mathematics
-Matlab\
+## Single Leg Design
+
+### Mathematics
 Python
 
-## Simulation
+### Simulation
 Webots
 
-## Hardwares
-Arduino Uno\
-Quadruped Robot
+### Hardwares
+Arduino Uno, Quadruped Robot
+
