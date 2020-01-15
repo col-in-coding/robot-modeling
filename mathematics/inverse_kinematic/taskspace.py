@@ -41,7 +41,7 @@ ax.scatter(x, y, alpha=0.2)
 # route design (manually)
 # duty circle: 0.5
 # form: hemisphere
-# position: right under the origin
+# position: right under the origin with high h
 # phases: 4
 fh = 0.5
 phases = 4
@@ -55,15 +55,33 @@ phaseSteps = routeSteps // phases
 h = link1 + link2 - fh
 
 # phase 1
-rx = np.linspace(ox, ox - deltaS // 2, phaseSteps)
-ry = np.repeat(-h, phaseSteps)
+rx1, ry1 = (ox, -h)
+rx = np.linspace(rx1, ox - deltaS // 2, phaseSteps)
+ry = np.repeat(ry1, phaseSteps)
 # phase 2 an 3
+rx2, ry2 = (ox - deltaS // 2, -h)
+rx3, ry3 = (ox, oy - h + deltaS // 2)
 for theta in np.linspace(0., np.pi, phaseSteps * 2):
     rx = np.append(rx, [ox - deltaS // 2 * np.cos(theta)])
     ry = np.append(ry, [oy - h + deltaS // 2 * np.sin(theta)])
 # phase 4
+rx4, ry4 = (ox + deltaS // 2, -h)
+
 rx = np.append(rx, np.linspace(ox + deltaS // 2, ox, phaseSteps))
 ry = np.append(ry, np.repeat(-h, phaseSteps))
 
 plt.plot(rx, ry, 'y')
+
+
+# plot annotations
+ax.scatter([rx1, rx2, rx3, rx4], [ry1, ry2, ry3, ry4], alpha=1)
+ax.scatter(ox, oy, alpha=1)
+
+ax.annotate('O', (ox, oy + 0.5))
+ax.annotate('A', (rx1, ry1 + 0.5))
+ax.annotate('B', (rx2 - 0.8, ry2 + 0.5))
+ax.annotate('C', (rx3, ry3 + 0.5))
+ax.annotate('D', (rx4, ry4 + 0.5))
+
+
 plt.show()
