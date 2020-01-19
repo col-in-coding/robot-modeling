@@ -1,12 +1,12 @@
 #include <Servo.h>
 
 Servo myservo;
-int received = 0;
+int received {0};
 
 void setup() {
-  
   // put your setup code here, to run once:
   myservo.attach(11);
+  // 500 - 2500
   myservo.writeMicroseconds(1000);
   delayMicroseconds(1000);
 

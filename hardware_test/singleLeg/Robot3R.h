@@ -1,41 +1,52 @@
 /********************************************************************
- * Author: Haoxian Li (Colin)
+ * Author: Haoxiang Li (Colin)
  * 3R Robot
  * Header file
  *******************************************************************/
 
-#include <deque>
 #include <Servo.h>
+#include <Arduino.h>
 
-#define PIN_HIP0 11
-#define PIN_HIP1 10
-#define PIN_HIP2 9
+// servos
+Servo hip0;
+Servo hip1;
+Servo knee;
+
+const int servo_us_min {500};
+const int servo_us_max {2500};
+// hip joint 0, hip joint 1, knee joint
+const int servo_pins [3] {11, 10, 9};
+const float us_per_deg {11.1111111};
 
 class Robot3R
 {
 private:
-  int initAngles[3] = [0, 0, 0]; // to change the default joint angles
-  int angleLimits[3]; // max angle value from 0 (default as 0)
-  deque<int> taskQ; // task queue to be run
-  bool isInf = false; // if run taskQ loop circle
+  const int dof {3};
+  // servos configs: servo angles to align the coordinate
+  int init_servo_angles [3] {45, 90, 45};
+  bool motor_rot_reverse [3] {1, 0, 0};
+
 
 public:
-  Robot3R(int initAngles[3], int angleLimits[3]); // constructor
+  Robot3R(); // constructor
   ~Robot3R(); // distructor
+
+  void Robot3R::servo_set_us(int servo_id, int us);
 
   /**
    * assign a single line task
    */
-  void setJointStatus(int angles[]);
+  void set_joint_angles(int angles [3]);
 
   /**
    * assign a new task sequence
    */
-  void setJointStatusSequence(int** anglesList);
-
+  void set_joint_angles_sequence();
 
   /**
    * actuation
    */
   void run();
+
+  void start();
 };
