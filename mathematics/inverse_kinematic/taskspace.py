@@ -92,7 +92,7 @@ print('cx, cy: ', cx, cy)
 angHalf = np.pi - 2 * np.arctan(deltaS // 2 / deltaH)
 R = sqrt((cx - rx2) ** 2 + (cy - ry2) ** 2)
 for theta in np.linspace(np.pi / 2 - angHalf, np.pi / 2 + angHalf, phaseSteps * 2):
-    rxNew = cx + R * np.cos(theta)
+    rxNew = cx - R * np.cos(theta)
     ryNew = cy + R * np.sin(theta)
     validate(link1, link2, rxNew - ox, ryNew - oy)
     rx = np.append(rx, [rxNew])
