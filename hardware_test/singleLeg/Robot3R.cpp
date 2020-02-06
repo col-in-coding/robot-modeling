@@ -40,15 +40,15 @@ int Robot3R::convert_rad_to_pulse_us(double rad) {
 /**
  * Convert Angle Degree to PWM us
  */
-int Robot3R::convert_ang_to_pulse_us(uint8_t ang) {
+int Robot3R::convert_ang_to_pulse_us(int16_t ang) {
   int us = SERVO_US_MIN + static_cast<double>(SERVO_US_MAX - SERVO_US_MIN) * ang / 180;
   return us;
 }
 
-void Robot3R::servo_set_angs(uint8_t angs[]) {
-  uint8_t ang0 = INIT_ANG[0] + angs[0];
-  uint8_t ang1 = INIT_ANG[1] + angs[1];
-  uint8_t ang2 = INIT_ANG[2] - angs[2];
+void Robot3R::servo_set_angs(int16_t angs[]) {
+  int16_t ang0 = INIT_ANG[0] + angs[0];
+  int16_t ang1 = INIT_ANG[1] + angs[1];
+  int16_t ang2 = INIT_ANG[2] - angs[2];
   hip0_servo.writeMicroseconds(convert_ang_to_pulse_us(ang0));
   hip1_servo.writeMicroseconds(convert_ang_to_pulse_us(ang1));
   knee_servo.writeMicroseconds(convert_ang_to_pulse_us(ang2));
