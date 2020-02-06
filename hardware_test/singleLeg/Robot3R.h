@@ -6,19 +6,22 @@
 #ifndef ROBOT_3R_H
 #define ROBOT_3R_H
 
+// define uint8_t as unsigned 8bit int
+typedef unsigned char uint8_t;
+
 const int SERVO_US_MIN {500};
 const int SERVO_US_MAX {2500};
 // set init angles as the base angles
-const int INIT_ANG[3] {45, 90, 180};
+const uint8_t INIT_ANG[3] {45, 90, 180};
 
 class Robot3R
 {
 private:
-  int hip0_pin {};
-  int hip1_pin {};
-  int knee_pin {};
-  int current_theta [3] {0, 0, 0};
-  int task[100][3]
+  byte hip0_pin {};
+  byte hip1_pin {};
+  byte knee_pin {};
+  uint8_t current_theta [3] {0, 0, 0};
+  uint8_t task[100][3]
   {
     {0,16,36},
     {0,17,36},
@@ -124,11 +127,11 @@ private:
 
 
 public:
-  Robot3R(int hip0_pin, int hip1_pin, int knee_pin);
+  Robot3R(byte hip0_pin, byte hip1_pin, byte knee_pin);
   void start();
   int convert_rad_to_pulse_us(double rad);
-  int Robot3R::convert_ang_to_pulse_us(int ang);
-  void servo_set_angs(int angs[]);
+  int convert_ang_to_pulse_us(uint8_t ang);
+  void servo_set_angs(uint8_t angs[]);
   void run_period();
 };
 #endif
