@@ -4,8 +4,14 @@ Servo myservo;
 int received {0};
 
 void setup() {
-  // put your setup code here, to run once:
-  myservo.attach(11);
+  pinMode(2, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
+
+  myservo.attach(2);
   // 500 - 2500
   myservo.writeMicroseconds(1000);
   delayMicroseconds(1000);

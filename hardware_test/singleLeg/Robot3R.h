@@ -9,7 +9,8 @@
 const int SERVO_US_MIN {500};
 const int SERVO_US_MAX {2500};
 // set init angles as the base angles
-const uint8_t INIT_ANG[3] {45, 90, 180};
+const uint8_t INIT_ANG[3] {135, 90, 0};
+const int8_t SERVO_DIR[3] {-1, -1, 1};
 
 class Robot3R
 {
@@ -17,7 +18,7 @@ private:
   byte hip0_pin {};
   byte hip1_pin {};
   byte knee_pin {};
-  int16_t current_theta [3] {0, 0, 0};
+  int16_t current_theta [3] {0, 16, 36};
   int8_t task[100][3]
   {
     {0,16,36},

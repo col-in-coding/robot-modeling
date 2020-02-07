@@ -24,9 +24,8 @@ void Robot3R::start() {
   hip0_servo.attach(hip0_pin);
   hip1_servo.attach(hip1_pin);
   knee_servo.attach(knee_pin);
-  delay(1000);
   servo_set_angs(current_theta);
-  delay(2000);
+  delay(3000);
 }
 
 /**
@@ -46,9 +45,12 @@ int Robot3R::convert_ang_to_pulse_us(int16_t ang) {
 }
 
 void Robot3R::servo_set_angs(int16_t angs[]) {
-  int16_t ang0 = INIT_ANG[0] + angs[0];
-  int16_t ang1 = INIT_ANG[1] + angs[1];
-  int16_t ang2 = INIT_ANG[2] - angs[2];
+  int16_t ang0 = INIT_ANG[0] + SERVO_DIR[0] * angs[0];
+  int16_t ang1 = INIT_ANG[1] + SERVO_DIR[1] * angs[1];
+  int16_t ang2 = INIT_ANG[2] + SERVO_DIR[2] * angs[2];
+//  Serial.println(ang0);
+//  Serial.println(ang1);
+//  Serial.println(ang2);
   hip0_servo.writeMicroseconds(convert_ang_to_pulse_us(ang0));
   hip1_servo.writeMicroseconds(convert_ang_to_pulse_us(ang1));
   knee_servo.writeMicroseconds(convert_ang_to_pulse_us(ang2));
