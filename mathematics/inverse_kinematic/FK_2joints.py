@@ -10,8 +10,8 @@
 #   T: Homogeneous Transformation Matrix of End Effect
 #
 # Formulas:
-#   a = c01 * x12 + s01 * y12 + x01
-#   b = -s01 * x12 + c01 * y12 + y01
+#   a = c01 * x12 - s01 * y12 + x01
+#   b = s01 * x12 + c01 * y12 + y01
 #   l1 ** 2 = x01 ** 2 + y01 ** 2
 #   l2 ** 2 = x12 ** 2 + y12 ** 2
 #   theta01 = arctan(y01 / x01)
