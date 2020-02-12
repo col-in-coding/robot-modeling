@@ -8,8 +8,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.04529283671648667 -0.9830205687029187 -0.17781766067847138 2.685010679776316
-  position -0.8727504386137991 0.5813175460349285 -1.4622526631164106
+  orientation -0.0063886957607947855 -0.9888096300971353 -0.149045966042837 3.0977108911638376
+  position -0.2197228050910729 1.0664674947282815 -3.580247565412533
 }
 TexturedBackground {
 }
@@ -18,7 +18,7 @@ TexturedBackgroundLight {
 RectangleArena {
   translation 0 -0.3 0.19
   rotation 1 0 0 4.692820414042842e-06
-  floorSize 2 2
+  floorSize 4 4
 }
 DEF DOT_GO Robot {
   translation 0 0.12 0.01
@@ -35,6 +35,7 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip3x"
+          maxTorque 100
         }
       ]
       device2 [
@@ -43,10 +44,12 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip3z"
+          maxTorque 100
         }
       ]
       endPoint Solid {
-        translation -0.2 0 -0.1
+        translation -0.20000608686423835 -4.766681333544348e-05 -0.09999999754399529
+        rotation -0.05596291416413469 -0.9984328481366475 2.449044735558207e-09 1.1151007970493858e-07
         children [
           DEF KNEE3 HingeJoint {
             jointParameters HingeJointParameters {
@@ -59,6 +62,7 @@ DEF DOT_GO Robot {
               }
               RotationalMotor {
                 name "knee3"
+                maxTorque 100
               }
             ]
             endPoint Solid {
@@ -173,6 +177,7 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip2x"
+          maxTorque 100
         }
       ]
       device2 [
@@ -181,10 +186,12 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip2z"
+          maxTorque 100
         }
       ]
       endPoint Solid {
-        translation -0.2 0 0.1
+        translation -0.19999590437609466 -4.300726290571177e-05 0.09999999687727783
+        rotation 0.5048173017587092 -0.8632262112824518 8.662308903962538e-10 3.734220292014386e-07
         children [
           DEF KNEE2 HingeJoint {
             jointParameters HingeJointParameters {
@@ -197,6 +204,7 @@ DEF DOT_GO Robot {
               }
               RotationalMotor {
                 name "knee2"
+                maxTorque 100
               }
             ]
             endPoint Solid {
@@ -311,6 +319,7 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip1x"
+          maxTorque 100
         }
       ]
       device2 [
@@ -323,7 +332,8 @@ DEF DOT_GO Robot {
         }
       ]
       endPoint Solid {
-        translation 0.2 0 -0.1
+        translation 0.20000228302022832 -1.9151218807147833e-05 -0.0999999994269053
+        rotation 0.28194453531958596 -0.9594307056809381 -1.2344127834538342e-09 1.1151007970493858e-07
         children [
           DEF KNEE1 HingeJoint {
             jointParameters HingeJointParameters {
@@ -336,6 +346,7 @@ DEF DOT_GO Robot {
               }
               RotationalMotor {
                 name "knee1"
+                maxTorque 100
               }
             ]
             endPoint Solid {
@@ -450,6 +461,7 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip0x"
+          maxTorque 100
         }
       ]
       device2 [
@@ -458,10 +470,12 @@ DEF DOT_GO Robot {
         }
         RotationalMotor {
           name "hip0z"
+          maxTorque 100
         }
       ]
       endPoint Solid {
-        translation 0.2 0 0.1
+        translation 0.200004 -7.48718e-06 0.1
+        rotation -0.6315110604808886 0.7753668683212505 -1.3688848147934803e-08 1.5769906706002898e-07
         children [
           DEF KNEE0 HingeJoint {
             jointParameters HingeJointParameters {
@@ -474,6 +488,7 @@ DEF DOT_GO Robot {
               }
               RotationalMotor {
                 name "knee0"
+                maxTorque 100
               }
             ]
             endPoint Solid {
@@ -595,8 +610,9 @@ DEF DOT_GO Robot {
   contactMaterial "dog"
   boundingObject USE BODY_SHAPE
   physics Physics {
+    density 10
   }
-  controller "init_testing"
+  controller "quadruped_controller"
 }
 DEF WORKBANCH Solid {
   translation 0 -0.08 0

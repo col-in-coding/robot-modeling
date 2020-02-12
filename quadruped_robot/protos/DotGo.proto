@@ -1,6 +1,7 @@
 PROTO DotGo [
   field SFVec3f    translation   0 0.33 0
   field SFRotation rotation      0 1 0 0
+  field SFString   controller    "init_testing"
 ]
 {
   Robot {
@@ -580,6 +581,6 @@ PROTO DotGo [
     boundingObject USE BODY_SHAPE
     physics Physics {
     }
-    controller "init_testing"
+    controller IS controller
   }
 } 

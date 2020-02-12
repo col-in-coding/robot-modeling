@@ -82,15 +82,15 @@ rightStepUp = [
   0, 55/180 * math.pi, -110/180 * math.pi
 ]
 
-
+setPositions(motors, leftStepUp, posSensors);
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
-  if isLeftStepUp == True:
-    setPositions(motors, leftStepUp, posSensors)
-  else:
-    setPositions(motors, rightStepUp, posSensors)
-  isLeftStepUp = not isLeftStepUp
+  # if isLeftStepUp == True:
+    # setPositions(motors, leftStepUp, posSensors)
+  # else:
+    # setPositions(motors, rightStepUp, posSensors)
+  # isLeftStepUp = not isLeftStepUp
   
 
   pass

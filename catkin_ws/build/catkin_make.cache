@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/colin/Github/robot-modeling/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/colin/Github/robot-modeling/catkin_ws/install -G Unix Makefiles
