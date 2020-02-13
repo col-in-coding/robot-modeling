@@ -12,21 +12,25 @@
 #   u: (optional, default 0), feedback, EX: u1 <=> x1, u2<=> y2...
 #
 # Outputs:
-#   x1, y1 => LF
-#   x2, y2 => RF
-#   x3, y3 => LH
-#   x4, y4 => RH
+#   x1 => LF
+#   x2 => RF
+#   x3 => LH
+#   x4 => RH
+#
+# x, the output of the oscillator, is control signal for hip joint
+# the Ascending part is in the swing phase
+# the Descending part is in support phase (when the knee joint is frozen)
 ###
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-alpha = 100
+alpha = 10000
 beta = 0.75
 mu = 1
 omega_sw = 5 * np.pi
 omega_st = omega_sw * (1 - beta) / beta
-a = 100
+a = 10
 
 # phase config of walk gait
 phi_LF = 0
@@ -39,7 +43,7 @@ phi = [phi_LF, phi_RF, phi_LH, phi_RH]
 # 5 seconds
 sim_duration = 5
 dt = 0.01
-iteration = 10
+iteration = 100
 
 x1, y1, x2, y2, x3, y3, x4, y4 = np.random.uniform(0, 1, 8)
 Q = np.matrix([x1, y1, x2, y2, x3, y3, x4, y4]).T
@@ -80,6 +84,7 @@ for t in t_t:
         ]).T
 
         """
+            Coupling Matrix of 4 Oscillators
             R = [
                 R11, R21, R31, R41;
                 R12, R22, R32, R42;
@@ -125,16 +130,28 @@ for t in t_t:
     x4_t.append(x4)
     y4_t.append(y4)
 
-fig, (ax0, ax1, ax2, ax3) = plt.subplots(4, 1)
-ax0.plot(t_t, x1_t, label='hip')
+plt.figure()
+plt.subplot(411)
+plt.plot(t_t, x1_t, label='hip')
 plt.ylabel('LF')
-ax1.plot(t_t, x2_t, label='hip')
-plt.ylabel('RF')
-ax2.plot(t_t, x3_t, label='hip')
-plt.ylabel('LH')
-ax3.plot(t_t, x4_t, label='hip')
-plt.ylabel('RH')
+plt.grid()
 
+plt.subplot(412)
+plt.plot(t_t, x2_t, label='hip')
+plt.ylabel('RF')
+plt.grid()
+
+plt.subplot(413)
+plt.plot(t_t, x3_t, label='hip')
+plt.ylabel('LH')
+plt.grid()
+
+plt.subplot(414)
+plt.plot(t_t, x4_t, label='hip')
+plt.ylabel('RH')
+plt.grid()
+
+plt.subplots_adjust(top=0.92, bottom=0.2, hspace=0.5, wspace=0.35)
 plt.legend()
 
 
