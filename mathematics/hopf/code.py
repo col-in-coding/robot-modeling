@@ -3,6 +3,7 @@
 #
 # Params:
 #   alpha: control the rate of convergence
+#   u: control the amplitude of the output signals, A = sqrt(u)
 #   w: (omega) control the frequency
 ###
 
