@@ -3,7 +3,9 @@
 #
 # Params:
 #   alpha: Rate of convergence
-#   mu: control the amplitude of the output signals, A = sqrt(mu)
+#   mu: control the amplitude of the output signals, Ah = sqrt(mu)
+#   Ah: Amplitude of the hip joint control signal
+#   Ak: Amplitude of the knee joint control signal
 #   beta: Duty cycle of the support phase (Load Factor)
 #         omega_st / omega_sw = (1 - beta) / beta
 #   omega_sw: Frequency of the swing phase
@@ -27,10 +29,12 @@ import numpy as np
 
 alpha = 10000
 beta = 0.75
-mu = 1
+Ah = 1
+Ak = 0.5
 omega_sw = 5 * np.pi
 omega_st = omega_sw * (1 - beta) / beta
 a = 10
+mu = Ah ** 2
 
 # phase config of walk gait
 phi_LF = 0
@@ -38,7 +42,7 @@ phi_RF = 0.5
 phi_LH = 0.75
 phi_RH = 0.25
 # phase order
-phi = [phi_LF, phi_RF, phi_LH, phi_RH]
+phi = [phi_LF, phi_RF, phi_RH, phi_LH]
 
 # 5 seconds
 sim_duration = 5
@@ -46,17 +50,22 @@ dt = 0.01
 iteration = 100
 
 x1, y1, x2, y2, x3, y3, x4, y4 = np.random.uniform(0, 1, 8)
-Q = np.matrix([x1, y1, x2, y2, x3, y3, x4, y4]).T
+Q1 = np.matrix([x1, y1]).T
+Q2 = np.matrix([x2, y2]).T
+Q3 = np.matrix([x3, y3]).T
+Q4 = np.matrix([x4, y4]).T
+Q = np.vstack([Q1, Q2, Q3, Q4])
 
 # result collection
-x1_t = []
-y1_t = []
-x2_t = []
-y2_t = []
-x3_t = []
-y3_t = []
-x4_t = []
-y4_t = []
+theta_h1_t = []
+theta_h2_t = []
+theta_h3_t = []
+theta_h4_t = []
+theta_k1_t = []
+theta_k2_t = []
+theta_k3_t = []
+theta_k4_t = []
+
 t_t = np.arange(0, sim_duration, dt)
 
 for t in t_t:
@@ -121,34 +130,60 @@ for t in t_t:
         x4 = Q[6, 0]
         y4 = Q[7, 0]
 
-    x1_t.append(x1)
-    y1_t.append(y1)
-    x2_t.append(x2)
-    y2_t.append(y2)
-    x3_t.append(x3)
-    y3_t.append(y3)
-    x4_t.append(x4)
-    y4_t.append(y4)
+    # Signal Data Collection
+    theta_h1_t.append(x1)
+    theta_h2_t.append(x2)
+    theta_h3_t.append(x3)
+    theta_h4_t.append(x4)
+
+    if y1 > 0:
+        theta_k1 = 0
+    else:
+        theta_k1 = - Ak / Ah * y1
+
+    if y2 > 0:
+        theta_k2 = 0
+    else:
+        theta_k2 = - Ak / Ah * y2
+
+    if y3 > 0:
+        theta_k3 = 0
+    else:
+        theta_k3 = Ak / Ah * y3
+
+    if y4 > 0:
+        theta_k4 = 0
+    else:
+        theta_k4 = Ak / Ah * y4
+
+    theta_k1_t.append(theta_k1)
+    theta_k2_t.append(theta_k2)
+    theta_k3_t.append(theta_k3)
+    theta_k4_t.append(theta_k4)
 
 plt.figure()
 plt.subplot(411)
-plt.plot(t_t, x1_t, label='hip')
+plt.plot(t_t, theta_h1_t, label='hip')
+plt.plot(t_t, theta_k1_t, label='knee')
 plt.ylabel('LF')
 plt.grid()
 
 plt.subplot(412)
-plt.plot(t_t, x2_t, label='hip')
+plt.plot(t_t, theta_h2_t, label='hip')
+plt.plot(t_t, theta_k2_t, label='knee')
 plt.ylabel('RF')
 plt.grid()
 
 plt.subplot(413)
-plt.plot(t_t, x3_t, label='hip')
-plt.ylabel('LH')
+plt.plot(t_t, theta_h3_t, label='hip')
+plt.plot(t_t, theta_k3_t, label='knee')
+plt.ylabel('RH')
 plt.grid()
 
 plt.subplot(414)
-plt.plot(t_t, x4_t, label='hip')
-plt.ylabel('RH')
+plt.plot(t_t, theta_h4_t, label='hip')
+plt.plot(t_t, theta_k4_t, label='knee')
+plt.ylabel('LH')
 plt.grid()
 
 plt.subplots_adjust(top=0.92, bottom=0.2, hspace=0.5, wspace=0.35)
