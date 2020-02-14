@@ -49,7 +49,7 @@ sim_duration = 5
 dt = 0.01
 iteration = 100
 
-x1, y1, x2, y2, x3, y3, x4, y4 = np.random.uniform(0, 1, 8)
+x1, y1, x2, y2, x3, y3, x4, y4 = (1, 0, 0, 0, 0, 0, 0, 0)
 Q1 = np.matrix([x1, y1]).T
 Q2 = np.matrix([x2, y2]).T
 Q3 = np.matrix([x3, y3]).T
