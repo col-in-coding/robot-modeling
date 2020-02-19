@@ -10,11 +10,9 @@ robot = Robot()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
-# You should insert a getDevice-like function in order to get the
-# instance of a device of the robot. Something like:
-#  motor = robot.getMotor('motorname')
-#  ds = robot.getDistanceSensor('dsname')
-#  ds.enable(timestep)
+motor = robot.getMotor('servo_knee4')
+motor.setVelocity(10)
+motor.setPosition(1)
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller

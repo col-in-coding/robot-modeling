@@ -1,0 +1,517 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material2 "dog"
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.052728946546465684 -0.9613424430257866 -0.2702598109843785 3.5349927971212134
+  position 0.3532572211973191 0.26710512327397884 -0.655010492154096
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 -0.3 0.19
+  rotation 1 0 0 4.692820414042842e-06
+}
+DEF Mini_Dog Robot {
+  translation 0 -0.06 0
+  scale 1.00156 1.00156 1.00156
+  children [
+    DEF HIP4__JOINT Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor -0.1 0 -0.05
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "servo_hip4x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "servo_hip4z"
+        }
+      ]
+      endPoint DEF LEG4 Solid {
+        translation -0.1 0 -0.05
+        children [
+          DEF KNEE4_JOINT HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.1 0
+            }
+            device [
+              RotationalMotor {
+                name "servo_knee4"
+              }
+            ]
+            endPoint DEF LEG3_SPRING Solid {
+              translation 0 -0.1 0
+              rotation 0 0 1 0
+              children [
+                DEF FOOT Solid {
+                  translation 0 -0.1 0
+                  rotation 1 0 0 1.5708
+                  children [
+                    DEF FOOT_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                  boundingObject USE FOOT_SHAPE
+                  physics Physics {
+                  }
+                }
+                DEF LEG1_SPRING_TRANS Transform {
+                  translation 0 -0.05 0
+                  children [
+                    DEF LEG_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Box {
+                        size 0.01 0.1 0.005
+                      }
+                    }
+                  ]
+                }
+                DEF KNEE_JOINT_TRANS Transform {
+                  rotation 1 0 0 1.5708
+                  children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE_JOINT_TRANS
+              physics Physics {
+              }
+            }
+          }
+          DEF LEG41_TRANS Transform {
+            translation 0 -0.05 0
+            children [
+              DEF LEG_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Box {
+                  size 0.01 0.1 0.005
+                }
+              }
+            ]
+          }
+          DEF HIP_JOINT_TRANS Transform {
+            rotation 1 0 0 1.5708
+            children [
+              DEF JOINT_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Cylinder {
+                  height 0.006
+                  radius 0.008
+                }
+              }
+            ]
+          }
+        ]
+        name "leg4"
+        boundingObject USE HIP_JOINT_TRANS
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP3_JOINT Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor -0.1 0 0.05
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "servo_hip3x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "servo_hip3z"
+        }
+      ]
+      endPoint DEF LEG3 Solid {
+        translation -0.1 0 0.05
+        children [
+          DEF KNEE3_JOINT HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.1 0
+            }
+            device [
+              RotationalMotor {
+                name "servo_knee3"
+              }
+            ]
+            endPoint DEF LEG3_SPRING Solid {
+              translation 0 -0.1 0
+              rotation 0 0 1 0
+              children [
+                DEF FOOT Solid {
+                  translation 0 -0.1 0
+                  rotation 1 0 0 1.5708
+                  children [
+                    DEF FOOT_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                  boundingObject USE FOOT_SHAPE
+                  physics Physics {
+                  }
+                }
+                DEF LEG1_SPRING_TRANS Transform {
+                  translation 0 -0.05 0
+                  children [
+                    DEF LEG_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Box {
+                        size 0.01 0.1 0.005
+                      }
+                    }
+                  ]
+                }
+                DEF KNEE_JOINT_TRANS Transform {
+                  rotation 1 0 0 1.5708
+                  children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE_JOINT_TRANS
+              physics Physics {
+              }
+            }
+          }
+          DEF LEG31_TRANS Transform {
+            translation 0 -0.05 0
+            children [
+              DEF LEG_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Box {
+                  size 0.01 0.1 0.005
+                }
+              }
+            ]
+          }
+          DEF HIP_JOINT_TRANS Transform {
+            rotation 1 0 0 1.5708
+            children [
+              DEF JOINT_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Cylinder {
+                  height 0.006
+                  radius 0.008
+                }
+              }
+            ]
+          }
+        ]
+        name "leg3"
+        boundingObject USE HIP_JOINT_TRANS
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP2_JOINT Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor 0.1 0 0.05
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "servo_hip2x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "servo_hip2z"
+        }
+      ]
+      endPoint DEF LEG2 Solid {
+        translation 0.1 0 0.05
+        children [
+          DEF KNEE2_JOINT HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.1 0
+            }
+            device [
+              RotationalMotor {
+                name "servo_knee2"
+              }
+            ]
+            endPoint DEF LEG2_SPRING Solid {
+              translation 0 -0.1 0
+              rotation 0 0 1 0
+              children [
+                DEF FOOT Solid {
+                  translation 0 -0.1 0
+                  rotation 1 0 0 1.5708
+                  children [
+                    DEF FOOT_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                  boundingObject USE FOOT_SHAPE
+                  physics Physics {
+                  }
+                }
+                DEF LEG1_SPRING_TRANS Transform {
+                  translation 0 -0.05 0
+                  children [
+                    DEF LEG_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Box {
+                        size 0.01 0.1 0.005
+                      }
+                    }
+                  ]
+                }
+                DEF KNEE_JOINT_TRANS Transform {
+                  rotation 1 0 0 1.5708
+                  children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE_JOINT_TRANS
+              physics Physics {
+              }
+            }
+          }
+          DEF LEG21_TRANS Transform {
+            translation 0 -0.05 0
+            children [
+              DEF LEG_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Box {
+                  size 0.01 0.1 0.005
+                }
+              }
+            ]
+          }
+          DEF HIP_JOINT_TRANS Transform {
+            rotation 1 0 0 1.5708
+            children [
+              DEF JOINT_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Cylinder {
+                  height 0.006
+                  radius 0.008
+                }
+              }
+            ]
+          }
+        ]
+        name "leg2"
+        boundingObject USE HIP_JOINT_TRANS
+        physics Physics {
+        }
+      }
+    }
+    DEF HIP1_JOINT Hinge2Joint {
+      jointParameters HingeJointParameters {
+        anchor 0.1 0 -0.05
+      }
+      jointParameters2 JointParameters {
+      }
+      device [
+        RotationalMotor {
+          name "servo_hip1x"
+        }
+      ]
+      device2 [
+        RotationalMotor {
+          name "servo_hip1z"
+        }
+      ]
+      endPoint DEF LEG1 Solid {
+        translation 0.1 0 -0.05
+        children [
+          DEF KNEE1_JOINT HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 1
+              anchor 0 -0.1 0
+            }
+            device [
+              RotationalMotor {
+                name "servo_knee1"
+              }
+            ]
+            endPoint DEF LEG1_SPRING Solid {
+              translation 0 -0.1 0
+              rotation 0 0 1 0
+              children [
+                DEF FOOT Solid {
+                  translation 0 -0.1 0
+                  rotation 1 0 0 1.5708
+                  children [
+                    DEF FOOT_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                  boundingObject USE FOOT_SHAPE
+                  physics Physics {
+                  }
+                }
+                DEF LEG1_SPRING_TRANS Transform {
+                  translation 0 -0.05 0
+                  children [
+                    DEF LEG_SHAPE Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Box {
+                        size 0.01 0.1 0.005
+                      }
+                    }
+                  ]
+                }
+                DEF KNEE_JOINT_TRANS Transform {
+                  rotation 1 0 0 1.5708
+                  children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.768627 0.627451 0
+                      }
+                      geometry Cylinder {
+                        height 0.006
+                        radius 0.01
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE KNEE_JOINT_TRANS
+              physics Physics {
+              }
+            }
+          }
+          DEF LEG11_TRANS Transform {
+            translation 0 -0.05 0
+            children [
+              DEF LEG_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Box {
+                  size 0.01 0.1 0.005
+                }
+              }
+            ]
+          }
+          DEF HIP_JOINT_TRANS Transform {
+            rotation 1 0 0 1.5708
+            children [
+              DEF JOINT_SHAPE Shape {
+                appearance PBRAppearance {
+                  baseColor 0.768627 0.627451 0
+                }
+                geometry Cylinder {
+                  height 0.006
+                  radius 0.008
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject USE HIP_JOINT_TRANS
+        physics Physics {
+        }
+      }
+    }
+    DEF BODY_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0.305882 0.603922 0.0235294
+        roughness 0.8
+        metalness 0.1
+      }
+      geometry Box {
+        size 0.26 0.02 0.093
+      }
+    }
+  ]
+  name "mini dog"
+  boundingObject USE BODY_SHAPE
+  physics Physics {
+  }
+  controller "cpg_controller"
+}
+MyWorkbanch {
+  translation 0 -0.171728 0
+  scale 0.6 0.6 0.6
+}

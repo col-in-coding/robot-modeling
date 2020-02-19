@@ -1,9 +1,11 @@
 PROTO MyWorkbanch [
   field SFVec3f   translation   0 0.218272 0
+  field SFVec3f   scale         1 1 1
 ]
 {
   Solid {
     translation IS translation
+    scale IS scale
     children [
       DEF WORKBANCH_GROUP Group {
         children [
