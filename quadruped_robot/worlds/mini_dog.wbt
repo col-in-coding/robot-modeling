@@ -8,8 +8,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.052728946546465684 -0.9613424430257866 -0.2702598109843785 3.5349927971212134
-  position 0.3532572211973191 0.26710512327397884 -0.655010492154096
+  orientation 0.018359396027182024 -0.9887732863130595 -0.1482913377483308 3.4263965992275334
+  position 0.4271495640178565 0.23288160385467133 -1.2576271803901207
 }
 TexturedBackground {
 }
@@ -18,6 +18,7 @@ TexturedBackgroundLight {
 RectangleArena {
   translation 0 -0.3 0.19
   rotation 1 0 0 4.692820414042842e-06
+  floorSize 10 10
 }
 DEF Mini_Dog Robot {
   translation 0 -0.06 0
@@ -40,7 +41,8 @@ DEF Mini_Dog Robot {
         }
       ]
       endPoint DEF LEG4 Solid {
-        translation -0.1 0 -0.05
+        translation -0.1000217964229049 2.8992818645565064e-06 -0.050068472792199295
+        rotation 0.1329708628000711 0.9911199471530925 1.2065134859256913e-06 0.0005692825420769882
         children [
           DEF KNEE4_JOINT HingeJoint {
             jointParameters HingeJointParameters {
@@ -63,6 +65,8 @@ DEF Mini_Dog Robot {
                     DEF FOOT_SHAPE Shape {
                       appearance PBRAppearance {
                         baseColor 0.768627 0.627451 0
+                        roughness 1
+                        metalness 0
                       }
                       geometry Cylinder {
                         height 0.006
@@ -71,8 +75,6 @@ DEF Mini_Dog Robot {
                     }
                   ]
                   boundingObject USE FOOT_SHAPE
-                  physics Physics {
-                  }
                 }
                 DEF LEG1_SPRING_TRANS Transform {
                   translation 0 -0.05 0
@@ -158,7 +160,8 @@ DEF Mini_Dog Robot {
         }
       ]
       endPoint DEF LEG3 Solid {
-        translation -0.1 0 0.05
+        translation -0.09999810900870515 -2.9604134401916184e-06 0.050015324742532695
+        rotation -0.4790615631717819 -0.8777813045911933 1.2615298936687952e-06 0.00046450745023388155
         children [
           DEF KNEE3_JOINT HingeJoint {
             jointParameters HingeJointParameters {
@@ -181,6 +184,8 @@ DEF Mini_Dog Robot {
                     DEF FOOT_SHAPE Shape {
                       appearance PBRAppearance {
                         baseColor 0.768627 0.627451 0
+                        roughness 1
+                        metalness 0
                       }
                       geometry Cylinder {
                         height 0.006
@@ -189,8 +194,6 @@ DEF Mini_Dog Robot {
                     }
                   ]
                   boundingObject USE FOOT_SHAPE
-                  physics Physics {
-                  }
                 }
                 DEF LEG1_SPRING_TRANS Transform {
                   translation 0 -0.05 0
@@ -276,7 +279,8 @@ DEF Mini_Dog Robot {
         }
       ]
       endPoint DEF LEG2 Solid {
-        translation 0.1 0 0.05
+        translation 0.10002134609802116 -3.484747990434354e-06 0.05006762933791575
+        rotation -0.15247478463497133 0.988307361112047 -4.718177095537075e-06 0.00041318025708980086
         children [
           DEF KNEE2_JOINT HingeJoint {
             jointParameters HingeJointParameters {
@@ -299,6 +303,8 @@ DEF Mini_Dog Robot {
                     DEF FOOT_SHAPE Shape {
                       appearance PBRAppearance {
                         baseColor 0.768627 0.627451 0
+                        roughness 1
+                        metalness 0
                       }
                       geometry Cylinder {
                         height 0.006
@@ -307,8 +313,6 @@ DEF Mini_Dog Robot {
                     }
                   ]
                   boundingObject USE FOOT_SHAPE
-                  physics Physics {
-                  }
                 }
                 DEF LEG1_SPRING_TRANS Transform {
                   translation 0 -0.05 0
@@ -394,7 +398,8 @@ DEF Mini_Dog Robot {
         }
       ]
       endPoint DEF LEG1 Solid {
-        translation 0.1 0 -0.05
+        translation 0.09999358285568746 6.3633680852749e-06 -0.0500161543818609
+        rotation 0.382140124004998 -0.9241043910675198 5.930683902590514e-06 0.00047789221437204897
         children [
           DEF KNEE1_JOINT HingeJoint {
             jointParameters HingeJointParameters {
@@ -417,6 +422,8 @@ DEF Mini_Dog Robot {
                     DEF FOOT_SHAPE Shape {
                       appearance PBRAppearance {
                         baseColor 0.768627 0.627451 0
+                        roughness 1
+                        metalness 0
                       }
                       geometry Cylinder {
                         height 0.006
@@ -425,8 +432,6 @@ DEF Mini_Dog Robot {
                     }
                   ]
                   boundingObject USE FOOT_SHAPE
-                  physics Physics {
-                  }
                 }
                 DEF LEG1_SPRING_TRANS Transform {
                   translation 0 -0.05 0
@@ -509,7 +514,7 @@ DEF Mini_Dog Robot {
   boundingObject USE BODY_SHAPE
   physics Physics {
   }
-  controller "cpg_controller"
+  controller "cpg_hopf_controller"
 }
 MyWorkbanch {
   translation 0 -0.171728 0
