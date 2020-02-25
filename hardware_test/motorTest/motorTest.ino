@@ -1,36 +1,37 @@
-#include <Servo.h>
+#include <Adafruit_PWMServoDriver.h>
 
-Servo myservo;
-int received {0};
+#define SERVOMIN 110
+#define SERVOMAX 512
+
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
+int convert2pulse(int ang) {
+  int pulse = map(ang, 0, 180, SERVOMIN, SERVOMAX);
+  return pulse;
+}
 
 void setup() {
-  pinMode(2, INPUT_PULLUP);
-  pinMode(3, INPUT_PULLUP);
-  pinMode(4, INPUT_PULLUP);
-  pinMode(5, INPUT_PULLUP);
-  pinMode(6, INPUT_PULLUP);
-  pinMode(7, INPUT_PULLUP);
-
-  myservo.attach(2);
-  // 500 - 2500
-  myservo.writeMicroseconds(1000);
-  delayMicroseconds(1000);
 
   Serial.begin(9600);
-  Serial.print("Enter microceconds: ");
+  Serial.println("Servo test! please input angle: ");
+
+  pwm.begin();
+  pwm.setPWMFreq(50);
+  delay(50);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if (Serial.available() > 0) {
-    // read the incoming byte:
-    received = Serial.parseInt();
-    if (received > 0) {
-      // say what you got:
-      Serial.println("I received: ");
-      Serial.println(received);
-      myservo.writeMicroseconds(received);
-      delay(1000);
+  String inString = "";
+  while (Serial.available() > 0) {
+    char inChar = Serial.read();
+    if (inChar != "\n") {
+      inString += (char)inChar;
     }
+    delay(10);
+  }
+  if (inString != "") {
+      Serial.print("I received: ");
+      Serial.println(inString);
+      pwm.setPWM(0, 0, convert2pulse(inString.toInt()));
   }
 }
