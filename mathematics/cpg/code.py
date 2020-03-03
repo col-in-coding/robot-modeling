@@ -6,7 +6,7 @@
 #   mu: control the amplitude of the output signals, Ah = sqrt(mu)
 #   Ah: Amplitude of the hip joint control signal
 #   Ak: Amplitude of the knee joint control signal
-#   beta: Duty cycle of the support phase (Load Factor)
+#   beta: Duty cycle of the support phase (Duty Factor)
 #         omega_st / omega_sw = (1 - beta) / beta
 #   omega_sw: Frequency of the swing phase
 #   omega_st: Frequency of the support phase
