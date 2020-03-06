@@ -53,14 +53,20 @@ void run_servos() {
   s4.writeMicroseconds(ang2pulse(130));
   s5.writeMicroseconds(ang2pulse(83));
   s6.writeMicroseconds(ang2pulse(0));
+  
+  s7.writeMicroseconds(ang2pulse(45));
+  s8.writeMicroseconds(ang2pulse(90));
+  s9.writeMicroseconds(ang2pulse(180));
+  
+  s10.writeMicroseconds(ang2pulse(130));
+  s11.writeMicroseconds(ang2pulse(83));
+  s12.writeMicroseconds(ang2pulse(0));
 
-  s7.writeMicroseconds(ang2pulse(130));
-  s8.writeMicroseconds(ang2pulse(83));
-  s9.writeMicroseconds(ang2pulse(0));
 
-  s10.writeMicroseconds(ang2pulse(45));
-  s11.writeMicroseconds(ang2pulse(90));
-  s12.writeMicroseconds(ang2pulse(180));
+
+//  s1.writeMicroseconds(ang2pulse(45));
+//  s2.writeMicroseconds(ang2pulse(90));
+//  s3.writeMicroseconds(ang2pulse(180));
 
   delay(1000);
 }
@@ -101,7 +107,6 @@ void loop() {
           shut_servos();
           break;
       }
-//      run_servo();
       inString = "";
     }
   }

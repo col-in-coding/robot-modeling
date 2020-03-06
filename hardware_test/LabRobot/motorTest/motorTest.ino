@@ -1,7 +1,7 @@
 #include <Servo.h>
 
 // our servo # counter
-uint8_t servonum = 5;
+uint8_t servonum = 9;
 Servo s;
 
 void setup() {
