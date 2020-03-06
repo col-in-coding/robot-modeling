@@ -17,33 +17,47 @@ void setup() {
   PTL("  0. switch off");
 }
 
-String inString = "";
+int inp = "";
+int code = 999;
 void loop() {
-if (Serial.available() > 0) {
+  if (Serial.available() > 0) {
     if (Serial.peek() != '\n') {
-      inString += (char)Serial.read();
+      inp = Serial.parseInt();
     } else {
       Serial.read();
       Serial.print("Instruction received: ");
-      
-      int code = inString.toInt();
-      Serial.println(code);
-      switch(code) {
-        case 1:
-          Robot.switch_on();
-          break;
-        case 2:
-          Robot.bot_stand();
-          break;
-        case 0:
-          Robot.switch_off();
-          break;
-        default:
-          PTL("wrong code");
-      }
+      Serial.println(inp);
 
-      inString = "";
+      code = inp;
+      Robot.lock = false; // unlock the robot
+      inp = "";
     }
+  }
+
+  switch(code) {
+    case 1:
+      Robot.switch_on();
+      // lock the robot, unless the periodic motion code
+      Robot.lock = true;
+      break;
+    case 2:
+      Robot.bot_stand();
+      Robot.lock = true;
+      break;
+    case 3:
+      Robot.bot_walk();
+//      Robot.lock = true; // for test
+      break;
+    case 0:
+      Robot.switch_off();
+      Robot.lock = true;
+      break;
+    case 999:
+      // waiting for input ...
+      break;
+    default:
+      PTL("wrong code");
+      code = 999;
   }
 
 }
