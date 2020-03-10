@@ -29,6 +29,10 @@
 
 #define DOF 12
 
+// CPG Oscillator data output time period: CPG_DT * CPG_ITERATES
+#define CPG_DT 0.001
+#define CPG_ITERATES 10
+
 class QuadrupedRobot
 {
 private:
@@ -44,8 +48,10 @@ private:
       rHL_PIN, sHL_PIN, kHL_PIN};
 
   // Servo rotation configs
-  uint8_t init_angs[12]{45, 90, 180, 130, 83, 0, 45, 90, 180, 130, 83, 0};
+  uint8_t init_angs[12]{35, 90, 180, 130, 83, 0, 35, 90, 180, 130, 83, 0};
   int8_t dir[12]{1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1};
+  // Angles in callibrated coordinate
+  double current_angs[12] {};
 
   /**
    * CPG Gait Configs
@@ -55,8 +61,6 @@ private:
   double Ah{0.2};
   double Ak{0.5};
   uint8_t a{10};
-  // LF, RF, LH, RH
-  double phi[4]{0, 0.5, 0.5, 0};
   double omega_sw{5*M_PI};
 
   // oscillator signals
@@ -72,12 +76,12 @@ private:
   double mu {};
   double omega[4] {};
   double theta[4][4] {};
-  double dt {0.0001};
 
   double rad2deg(double rad);
   void setup_servos();
   void shut_servos();
   void servo_write_angs(double angs[12], bool angs_in_rad=false);
+  void cpg_signal();
 
 public:
   QuadrupedRobot();
@@ -91,6 +95,7 @@ public:
   void bot_rest();
   void bot_stand();
   void bot_walk();
+  void bot_trot();
 };
 
 #endif

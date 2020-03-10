@@ -14,6 +14,7 @@ void setup() {
   PTL("  1. switch on");
   PTL("  2. stand");
   PTL("  3. walk");
+  PTL("  4. trot");
   PTL("  0. switch off");
 }
 
@@ -47,6 +48,9 @@ void loop() {
     case 3:
       Robot.bot_walk();
 //      Robot.lock = true; // for test
+      break;
+    case 4:
+      Robot.bot_trot();
       break;
     case 0:
       Robot.switch_off();
