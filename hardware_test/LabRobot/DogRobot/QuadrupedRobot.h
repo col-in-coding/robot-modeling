@@ -30,7 +30,7 @@
 #define DOF 12
 
 // CPG Oscillator data output time period: CPG_DT * CPG_ITERATES
-#define CPG_DT 0.001
+#define CPG_DT 0.005
 #define CPG_ITERATES 10
 
 class QuadrupedRobot
@@ -59,7 +59,7 @@ private:
   uint8_t alpha{1000};
   double beta{0.5};
   double Ah{0.2};
-  double Ak{0.5};
+  double Ak{0.2};
   uint8_t a{10};
   double omega_sw{5*M_PI};
 

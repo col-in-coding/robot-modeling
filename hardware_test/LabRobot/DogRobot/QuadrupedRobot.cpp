@@ -42,7 +42,6 @@ void QuadrupedRobot::servo_write_angs(double angs[DOF], bool angs_in_rad=false)
     }
     servos[i]->writeMicroseconds(pulsewidth);
   }
-  delay(10);
 }
 
 void QuadrupedRobot::cpg_signal()
@@ -145,6 +144,7 @@ void QuadrupedRobot::bot_walk()
   // LF, RF, LH, RH
   double phi[4]{0, 0.5, 0.25, 0.75};
   // init data for CPG
+  beta = 0.75;
   omega_st = omega_sw * (1 - beta) / beta;
   mu = Ah * Ah;
   for (int i = 0; i < 4; i++) {
@@ -162,6 +162,8 @@ void QuadrupedRobot::bot_trot()
   // LF, RF, LH, RH
   double phi[4]{0, 0.5, 0, 0.5};
   // init data for CPG
+  beta = 0.5;
+  
   omega_st = omega_sw * (1 - beta) / beta;
   mu = Ah * Ah;
   for (int i = 0; i < 4; i++) {
