@@ -48,10 +48,13 @@ private:
       rHL_PIN, sHL_PIN, kHL_PIN};
 
   // Servo rotation configs
-  uint8_t init_angs[12]{35, 90, 180, 130, 83, 0, 35, 90, 180, 130, 83, 0};
+  uint8_t init_angs[12]{35, 90, 180, 130, 83, 0, 35, 85, 180, 130, 83, 0};
   int8_t dir[12]{1, -1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1};
+  
   // Angles in callibrated coordinate
-  double current_angs[12] {};
+  double stand_angs[12]{0, -30, 60, 0, -30, 60, 0, 30, -60, 0, 30, -60};
+  double rest_angs[12]{0, -55, 130, 0, -55, 130, 0, 55, -130, 0, 55, -130};
+  double *current_angs_ptr{nullptr};
 
   /**
    * CPG Gait Configs
@@ -80,7 +83,7 @@ private:
   double rad2deg(double rad);
   void setup_servos();
   void shut_servos();
-  void servo_write_angs(double angs[12], bool angs_in_rad=false);
+  void servo_write_angs();
   void cpg_signal();
 
 public:
@@ -92,10 +95,12 @@ public:
 
   void switch_on();
   void switch_off();
+  void adjust();
   void bot_rest();
   void bot_stand();
   void bot_walk();
   void bot_trot();
+  
 };
 
 #endif

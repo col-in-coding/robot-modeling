@@ -16,6 +16,7 @@ void setup() {
   PTL("  3. walk");
   PTL("  4. trot");
   PTL("  0. switch off");
+  PTL("  998. adjust angles");
 }
 
 int inp = "";
@@ -56,6 +57,9 @@ void loop() {
       Robot.switch_off();
       Robot.lock = true;
       break;
+    case 998:
+      Robot.adjust();
+      Robot.lock = true;
     case 999:
       // waiting for input ...
       break;

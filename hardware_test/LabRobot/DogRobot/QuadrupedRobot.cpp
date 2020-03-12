@@ -2,6 +2,14 @@
 #include <Arduino.h>
 #include "QuadrupedRobot.h"
 
+QuadrupedRobot::QuadrupedRobot()
+{
+}
+
+QuadrupedRobot::~QuadrupedRobot()
+{
+}
+
 void QuadrupedRobot::setup_servos()
 {
   PTL("Setup Servos");
@@ -24,17 +32,19 @@ void QuadrupedRobot::shut_servos()
   }
 }
 
-void QuadrupedRobot::servo_write_angs(double angs[DOF], bool angs_in_rad=false)
+/**
+ * Servo Write Current Angles
+ * Current Angles is in Callibrated Coordinate,
+ * which should be transfered to real angle degrees before using.
+ */
+void QuadrupedRobot::servo_write_angs()
 {
 //  PTL("Servo Write Angles");
   double real_ang{};
   double pulsewidth{};
   for (size_t i = 0; i < DOF; i++)
   {
-    if (angs_in_rad) {
-      angs[i] = angs[i] * 180 / M_PI;
-    }
-    real_ang = init_angs[i] + dir[i] * angs[i];
+    real_ang = init_angs[i] + dir[i] * current_angs_ptr[i];
     pulsewidth = 500 + real_ang / 90.0 * 1000;
     if (!servos[i]->attached())
     {
@@ -44,9 +54,14 @@ void QuadrupedRobot::servo_write_angs(double angs[DOF], bool angs_in_rad=false)
   }
 }
 
+/**
+ * CPG (Central Pattern Generator)
+ * Based on HOPF oscillator
+ * Output: current_angs_ptr will be updated with output angles.
+ */
 void QuadrupedRobot::cpg_signal()
 {
-  double stand_angs[12]{0, -30, 60, 0, -30, 60, 0, 30, -60, 0, 30, -60};
+  double *pose_angs_ptr{stand_angs};
   // -1 for elbow style, 1 for knee style
   int8_t knee_factor[4]{-1, -1, 1, 1};
   // dt = 0.0001s, dt * 100 = 0.01s
@@ -84,25 +99,17 @@ void QuadrupedRobot::cpg_signal()
       y[i] += y_dot[i] * CPG_DT;
       
       // Hip Joint Angels
-      current_angs[i * 3] = 0 + stand_angs[i * 3];
-      current_angs[i * 3 + 1] = x[i] * 180 / M_PI + stand_angs[i * 3 + 1];
+      current_angs_ptr[i * 3] = 0 + pose_angs_ptr[i * 3];
+      current_angs_ptr[i * 3 + 1] = x[i] * 180 / M_PI + pose_angs_ptr[i * 3 + 1];
 
       // Knee Joint Angel
       if (y[i] > 0) {
-        current_angs[i * 3 + 2] = stand_angs[i * 3 + 2];
+        current_angs_ptr[i * 3 + 2] = pose_angs_ptr[i * 3 + 2];
       } else {
-        current_angs[i * 3 + 2] = y[i] * knee_factor[i] * Ak * 180 / (M_PI * Ah) + stand_angs[i * 3 + 2];
+        current_angs_ptr[i * 3 + 2] = y[i] * knee_factor[i] * Ak * 180 / (M_PI * Ah) + pose_angs_ptr[i * 3 + 2];
       }
     }
   }
-}
-
-QuadrupedRobot::QuadrupedRobot()
-{
-}
-
-QuadrupedRobot::~QuadrupedRobot()
-{
 }
 
 void QuadrupedRobot::switch_on()
@@ -122,22 +129,36 @@ void QuadrupedRobot::switch_off()
   shut_servos();
 }
 
+void QuadrupedRobot::adjust()
+{
+  if(lock) return;
+  double *temp {current_angs_ptr};
+  double adjust_angs[12] {};
+  current_angs_ptr = adjust_angs;
+  servo_write_angs();
+  current_angs_ptr = temp; 
+}
+
 void QuadrupedRobot::bot_rest()
 {
   if(lock) return;
   PTL("Robot Rest");
-  double rest_angs[12]{0, -55, 130, 0, -55, 130, 0, 55, -130, 0, 55, -130};
-  servo_write_angs(rest_angs);
+  current_angs_ptr = rest_angs;
+  servo_write_angs();
 }
 
 void QuadrupedRobot::bot_stand()
 {
   if(lock) return;
   PTL("Robot Stand");
-  double stand_angs[12]{0, -30, 60, 0, -30, 60, 0, 30, -60, 0, 30, -60};
-  servo_write_angs(stand_angs);
+  current_angs_ptr = stand_angs;
+  servo_write_angs();
 }
 
+/**
+ * Walk
+ * T = 4 * PI / omega_sw
+ */
 void QuadrupedRobot::bot_walk()
 {
   if(lock) return;
@@ -145,6 +166,8 @@ void QuadrupedRobot::bot_walk()
   double phi[4]{0, 0.5, 0.25, 0.75};
   // init data for CPG
   beta = 0.75;
+  Ah = 0.2;
+  omega_sw = 2 * M_PI;
   omega_st = omega_sw * (1 - beta) / beta;
   mu = Ah * Ah;
   for (int i = 0; i < 4; i++) {
@@ -152,10 +175,16 @@ void QuadrupedRobot::bot_walk()
       theta[i][j] = 2 * M_PI * (phi[i] - phi[j]);
     }
   }
+  current_angs_ptr = new double [DOF];
   cpg_signal();
-  servo_write_angs(current_angs);
+  servo_write_angs();
+  delete [] current_angs_ptr;
 }
 
+/**
+ * Trot
+ * T = 3 * PI / omega_sw
+ */
 void QuadrupedRobot::bot_trot()
 {
   if(lock) return;
@@ -171,6 +200,8 @@ void QuadrupedRobot::bot_trot()
       theta[i][j] = 2 * M_PI * (phi[i] - phi[j]);
     }
   }
+  current_angs_ptr = new double[DOF];
   cpg_signal();
-  servo_write_angs(current_angs);
+  servo_write_angs();
+  delete [] current_angs_ptr;
 }
