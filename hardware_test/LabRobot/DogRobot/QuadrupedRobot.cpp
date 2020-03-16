@@ -192,7 +192,7 @@ void QuadrupedRobot::bot_trot()
   double phi[4]{0, 0.5, 0, 0.5};
   // init data for CPG
   beta = 0.5;
-  
+  omega_sw = 5 * M_PI;
   omega_st = omega_sw * (1 - beta) / beta;
   mu = Ah * Ah;
   for (int i = 0; i < 4; i++) {
