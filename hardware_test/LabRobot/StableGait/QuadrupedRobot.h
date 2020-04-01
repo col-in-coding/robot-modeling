@@ -40,7 +40,7 @@ private:
    * Servo rotation configs
    * Real servo coord to calibrated coord: X-roll, Y-yaw, Z-pitch
    */
-  const float init_servo_deg[12]{35, 90, 180, 125, 83, 0, 40, 85, 180, 127, 83, 0};
+  const float init_servo_deg[12]{35, 90, 180, 125, 83, 5, 40, 85, 180, 127, 83, 0};
   const int8_t servo_dir[12]{-1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1};
   const float toe_out0{30}; // outward distance of toe during stand, in mm
   const float dist_ag{30};  // distance between alfa and gamma axis, in mm

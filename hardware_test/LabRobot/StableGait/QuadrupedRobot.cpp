@@ -198,9 +198,9 @@ void QuadrupedRobot::body_move_xyz(float dx, float dy, float dz)
  */
 void QuadrupedRobot::foot_step(int i, float x, float z)
 {
-  foot_move_xyz(i, 0, 30, 0); // leg lifting
+  foot_move_xyz(i, 0, 50, 0); // leg lifting
   foot_move_xyz(i, x, 0, z); // motion forward
-  foot_move_xyz(i, 0, -30, 0); // leg placement
+  foot_move_xyz(i, 0, -50, 0); // leg placement
 }
 
 void QuadrupedRobot::foot_move_xyz(int i, float dx, float dy, float dz)
@@ -210,7 +210,7 @@ void QuadrupedRobot::foot_move_xyz(int i, float dx, float dy, float dz)
   foot_pos[3 * i + 2] += dz;
   inverse_kinematics();
   servo_write_angs(joint_angs_new, false);
-  delay(100);
+  delay(200);
 }
 
 
@@ -227,36 +227,36 @@ void QuadrupedRobot::inverse_kinematics()
   joint_angs_new[1] = alfa_front(foot_pos[0], joint_angs_new[2], vlegs_len[0]);
 
   // FR 3, 4, 5
-   joint_angs_new[3] = gamma_right(foot_pos[4], foot_pos[5]);
-   vlegs_len[1] = vleg_right(foot_pos[3], foot_pos[4], joint_angs_new[3]);
-   joint_angs_new[5] = beta_front(vlegs_len[1]);
-   joint_angs_new[4] = alfa_front(foot_pos[3], joint_angs_new[5], vlegs_len[1]);
+  joint_angs_new[3] = gamma_right(foot_pos[4], foot_pos[5]);
+  vlegs_len[1] = vleg_right(foot_pos[3], foot_pos[4], joint_angs_new[3]);
+  joint_angs_new[5] = beta_front(vlegs_len[1]);
+  joint_angs_new[4] = alfa_front(foot_pos[3], joint_angs_new[5], vlegs_len[1]);
 
-   // RR 6, 7, 8
-   joint_angs_new[6] = gamma_right(foot_pos[7], foot_pos[8]);
-   vlegs_len[2] = vleg_right(foot_pos[6], foot_pos[7], joint_angs_new[6]);
-   joint_angs_new[8] = beta_rear(vlegs_len[2]);
-   joint_angs_new[7] = alfa_rear(foot_pos[6], joint_angs_new[8], vlegs_len[2]);
-   
-   // RL 9, 10, 11
-   joint_angs_new[9] = gamma_left(foot_pos[10], foot_pos[11]);
-   vlegs_len[3] = vleg_left(foot_pos[9], foot_pos[10], joint_angs_new[9]);
-   joint_angs_new[11] = beta_rear(vlegs_len[3]);
-   joint_angs_new[10] = alfa_rear(foot_pos[9], joint_angs_new[11], vlegs_len[3]);
+  // RR 6, 7, 8
+  joint_angs_new[6] = gamma_right(foot_pos[7], foot_pos[8]);
+  vlegs_len[2] = vleg_right(foot_pos[6], foot_pos[7], joint_angs_new[6]);
+  joint_angs_new[8] = beta_rear(vlegs_len[2]);
+  joint_angs_new[7] = alfa_rear(foot_pos[6], joint_angs_new[8], vlegs_len[2]);
 
-//  Serial.println("------- Test Angle list: ----------");
-//  Serial.println(joint_angs_new[0] * 180 / M_PI);
-//  Serial.println(joint_angs_new[1] * 180 / M_PI);
-//  Serial.println(joint_angs_new[2] * 180 / M_PI);
-//  Serial.println(joint_angs_new[3] * 180 / M_PI);
-//  Serial.println(joint_angs_new[4] * 180 / M_PI);
-//  Serial.println(joint_angs_new[5] * 180 / M_PI);
-//  Serial.println(joint_angs_new[6] * 180 / M_PI);
-//  Serial.println(joint_angs_new[7] * 180 / M_PI);
-//  Serial.println(joint_angs_new[8] * 180 / M_PI);
-//  Serial.println(joint_angs_new[9] * 180 / M_PI);
-//  Serial.println(joint_angs_new[10] * 180 / M_PI);
-//  Serial.println(joint_angs_new[11] * 180 / M_PI);
+  // RL 9, 10, 11
+  joint_angs_new[9] = gamma_left(foot_pos[10], foot_pos[11]);
+  vlegs_len[3] = vleg_left(foot_pos[9], foot_pos[10], joint_angs_new[9]);
+  joint_angs_new[11] = beta_rear(vlegs_len[3]);
+  joint_angs_new[10] = alfa_rear(foot_pos[9], joint_angs_new[11], vlegs_len[3]);
+
+  //  Serial.println("------- Test Angle list: ----------");
+  //  Serial.println(joint_angs_new[0] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[1] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[2] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[3] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[4] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[5] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[6] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[7] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[8] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[9] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[10] * 180 / M_PI);
+  //  Serial.println(joint_angs_new[11] * 180 / M_PI);
 }
 
 // Gamma: Hip Z angle
@@ -360,20 +360,25 @@ void QuadrupedRobot::bot_rest()
  */
 void QuadrupedRobot::bot_walk()
 {
-  float zl {30};
   Serial.println("walk");
-//  Serial.print("foot_pos[2]: ");
-//  Serial.println(foot_pos[2]);
-  body_move_xyz(steplen / 4, 0, -zl);
-  // foot_step(3, steplen / 2, 0); // move RL
-  // foot_step(0, steplen / 2, 0); // move FL
-  // body_move_xyz(steplen / 3, 0, 2 * toe_out0);
-  // while (command_code == 3)
-  // {
-
-  //   interrupt();
-  // }
-  clear_cmd();
+  body_move_xyz(steplen / 4, 0, -toe_out0);
+  foot_step(3, steplen / 2, 0); // move RL
+  foot_step(0, steplen / 2, 0); // move FL
+  body_move_xyz(steplen / 4, 0, 2 * toe_out0);
+  while (command_code == 3)
+  {
+    foot_step(2, steplen, 0); // move RR
+    foot_step(1, steplen, 0); // move FR
+    body_move_xyz(steplen / 2, 0, -2 * toe_out0 );
+    foot_step(3, steplen, 0); // move RL
+    foot_step(0, steplen, 0); // move FL
+    body_move_xyz(steplen / 2, 0, 2 * toe_out0);
+    interrupt();
+  }
+  foot_step(2, steplen / 2, 0);
+  foot_step(1, steplen / 2, 0);
+  body_xyz(0, 0, 0);
+  delay(500);  
 }
 
 QuadrupedRobot::~QuadrupedRobot()
