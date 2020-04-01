@@ -34,14 +34,14 @@ private:
       12, 13, 14};
   // Time taken by each sequence, used in servo_move()
   unsigned long timestep = 500;
-  int steplen = 40;
+  int steplen = 80;
 
   /**
    * Servo rotation configs
    * Real servo coord to calibrated coord: X-roll, Y-yaw, Z-pitch
    */
   const float init_servo_deg[12]{35, 90, 180, 125, 83, 0, 40, 85, 180, 127, 83, 0};
-  const int8_t servo_dir[12]{-1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, -1};
+  const int8_t servo_dir[12]{-1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1};
   const float toe_out0{30}; // outward distance of toe during stand, in mm
   const float dist_ag{30};  // distance between alfa and gamma axis, in mm
   const float thigh{107};
@@ -83,6 +83,9 @@ private:
   void clear_cmd();
 
   void body_xyz(float x, float y, float z);
+  void body_move_xyz(float dx, float dy, float dz);
+  void foot_step(int i, float x, float z);
+  void foot_move_xyz(int i, float dx, float dy, float dz);
 
   void inverse_kinematics();
   float gamma_left(float dy, float dz);
