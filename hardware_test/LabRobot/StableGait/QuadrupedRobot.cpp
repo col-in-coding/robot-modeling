@@ -87,6 +87,12 @@ void QuadrupedRobot::parse_code_run()
     case 3:
       bot_walk();
       break;
+    case 4:
+      bot_turn_left();
+      break;
+    case 5:
+      bot_turn_right();
+      break;
     case 0:
       switch_off();
       break;
@@ -181,6 +187,9 @@ void QuadrupedRobot::body_xyz(float x, float y, float z)
   servo_move(joint_angs_new);
 }
 
+/**
+ * Moving Body from current position
+ */
 void QuadrupedRobot::body_move_xyz(float dx, float dy, float dz)
 {
   for (size_t i = 0; i < 4; i++)
@@ -194,6 +203,26 @@ void QuadrupedRobot::body_move_xyz(float dx, float dy, float dz)
 }
 
 /**
+ * Turn body
+ */
+void QuadrupedRobot::body_turn_left()
+{
+  // FL pose
+  foot_pos[0] = - step_turn[0];
+  foot_pos[2] = - step_turn[2];
+  // RL pose
+  foot_pos[9] = - step_turn[9];
+  foot_pos[11] = - step_turn[11];
+  // FR pose
+  foot_pos[3] = 0;
+  foot_pos[5] = 0;
+  // RR pose
+  foot_pos[6] = 0;
+  foot_pos[8] = 0;
+  body_move_xyz(0, 0, 2 * toe_out0);
+}
+
+/**
  * Move ith foot with one step, in the same hight work plane
  */
 void QuadrupedRobot::foot_step(int i, float x, float z)
@@ -203,6 +232,19 @@ void QuadrupedRobot::foot_step(int i, float x, float z)
   foot_move_xyz(i, 0, -50, 0); // leg placement
 }
 
+/**
+ * Move ith foot with a turn angle
+ */
+void QuadrupedRobot::foot_step_ang(int i)
+{
+  foot_move_xyz(i, 0, 50, 0); // leg lifting
+  foot_move_xyz(i, step_turn[3 * i], 0, step_turn[3 * i + 2]);
+  foot_move_xyz(i, 0, -50, 0); // leg placement
+}
+
+/**
+ * Moving foot from current position
+ */
 void QuadrupedRobot::foot_move_xyz(int i, float dx, float dy, float dz)
 {
   foot_pos[3 * i] += dx;
@@ -211,6 +253,32 @@ void QuadrupedRobot::foot_move_xyz(int i, float dx, float dy, float dz)
   inverse_kinematics();
   servo_write_angs(joint_angs_new, false);
   delay(200);
+}
+
+/**
+ * Calculate step_turn
+ * foot sequence: FL FR RR RL
+ * index: ith (foot) * <0(x) | 1(y) | 2(z)>
+ */
+void QuadrupedRobot::turn_pose(float ang)
+{
+  step_turn[0] = body_radius * cos(body_phi0 + ang * M_PI / 180) - feet_dist_x / 2;
+  step_turn[2] = feet_dist_z / 2 - body_radius * sin(body_phi0 + ang * M_PI / 180);
+  step_turn[3] = body_radius * cos(body_phi0 - ang * M_PI / 180) - feet_dist_x / 2;
+  step_turn[5] = body_radius * sin(body_phi0 - ang * M_PI / 180) - feet_dist_z / 2;
+  step_turn[6] = feet_dist_x / 2 - body_radius * cos(body_phi0 + ang * M_PI / 180);
+  step_turn[8] = body_radius * sin(body_phi0 + ang * M_PI / 180) - feet_dist_z / 2;
+  step_turn[9] = feet_dist_x / 2 - body_radius * cos(body_phi0 - ang * M_PI / 180);
+  step_turn[11] = feet_dist_z / 2 - body_radius * sin(body_phi0 - ang * M_PI / 180);
+
+//  Serial.println(step_turn[0]);
+//  Serial.println(step_turn[2]);
+//  Serial.println(step_turn[3]);
+//  Serial.println(step_turn[5]);
+//  Serial.println(step_turn[6]);
+//  Serial.println(step_turn[8]);
+//  Serial.println(step_turn[9]);
+//  Serial.println(step_turn[11]);
 }
 
 
@@ -361,24 +429,56 @@ void QuadrupedRobot::bot_rest()
 void QuadrupedRobot::bot_walk()
 {
   Serial.println("walk");
-  body_move_xyz(steplen / 4, 0, -toe_out0);
-  foot_step(3, steplen / 2, 0); // move RL
+  body_move_xyz(steplen / 4, 0, toe_out0);
+  foot_step(3, steplen / 2, 0); // move FL
   foot_step(0, steplen / 2, 0); // move FL
-  body_move_xyz(steplen / 4, 0, 2 * toe_out0);
+  body_move_xyz(steplen / 4, 0, -2 * toe_out0);
   while (command_code == 3)
   {
     foot_step(2, steplen, 0); // move RR
     foot_step(1, steplen, 0); // move FR
-    body_move_xyz(steplen / 2, 0, -2 * toe_out0 );
+    body_move_xyz(steplen / 2, 0, 2 * toe_out0 );
     foot_step(3, steplen, 0); // move RL
     foot_step(0, steplen, 0); // move FL
-    body_move_xyz(steplen / 2, 0, 2 * toe_out0);
+    body_move_xyz(steplen / 2, 0, -2 * toe_out0);
     interrupt();
   }
   foot_step(2, steplen / 2, 0);
   foot_step(1, steplen / 2, 0);
   body_xyz(0, 0, 0);
   delay(500);  
+}
+
+void QuadrupedRobot::bot_turn_left()
+{
+  Serial.println("turn right");
+  turn_pose(turn_phi);
+  body_xyz(toe_out0 / 2, 0, -toe_out0); // Lean left
+  foot_step_ang(2); // move RR
+  foot_step_ang(1); // move FR
+  body_turn_left(); // move body
+  foot_step_ang(0); // move FL
+//  foot_step_ang(3); // move RL
+
+  pause();
+}
+
+void QuadrupedRobot::bot_turn_right()
+{
+  Serial.println("turn left");
+  while (command_code == 5)
+  {
+    ;
+  }
+  
+}
+
+void QuadrupedRobot::pause()
+{
+  while(!interrupt())
+  {
+    delay(1000);
+  }
 }
 
 QuadrupedRobot::~QuadrupedRobot()

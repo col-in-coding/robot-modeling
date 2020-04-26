@@ -15,6 +15,8 @@ void setup() {
     "  1. switch on\n"
     "  2. stand\n"
     "  3. walk\n"
+    "  4. turn left\n"
+    "  5. turn right\n"
     "  0. switch off\n"
     "  998. adjust angles\n"
   );

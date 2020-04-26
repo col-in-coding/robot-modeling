@@ -41,11 +41,19 @@ private:
    * Real servo coord to calibrated coord: X-roll, Y-yaw, Z-pitch
    */
   const float init_servo_deg[12]{35, 90, 180, 125, 83, 5, 40, 85, 180, 127, 83, 0};
-  const int8_t servo_dir[12]{-1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1};
+  const int8_t servo_dir[12]{1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1};
   const float toe_out0{30}; // outward distance of toe during stand, in mm
   const float dist_ag{30};  // distance between alfa and gamma axis, in mm
   const float thigh{107};
   const float calf{90};
+  /**
+   * Body configs
+   */
+  const float feet_dist_z{70}; // distance between feet in z axis, in mm
+  const float feet_dist_x{220}; // distance between feet in x axis, in mm
+  // distance from center to the foot
+  const float body_radius{sqrt(pow(feet_dist_z / 2, 2) + pow(feet_dist_x / 2, 2))};
+  const float body_phi0{atan(feet_dist_z / feet_dist_x)};
   /**
    * vleg_len: virtual leg length (composite with 2 limbs)
    * alfa, gamma, beta is conresponding to angles on HipZ, Knee, HipX axises
@@ -64,14 +72,15 @@ private:
   float joint_angs_new[12]{};
   float vlegs_len[4]{};
   float foot_pos[12] {};
+  float step_turn[12] {}; // foot step in case of turn
   /**
    * Configed States
    * Angles in callibrated coordinate
    */
   const float stand_angs[12]{0, -30, 60, 0, -30, 60, 0, 30, -60, 0, 30, -60};
   const float rest_angs[12]{0, -55, 130, 0, -55, 130, 0, 55, -130, 0, 55, -130};
-  const float adjust_angs[12] {};
-
+  const float adjust_angs[12]{};
+  const float turn_phi{20};
   // 
   // X points to forward, Z points to upward
   
@@ -84,8 +93,12 @@ private:
 
   void body_xyz(float x, float y, float z);
   void body_move_xyz(float dx, float dy, float dz);
+  void body_turn_left();
+  void body_turn_right();
   void foot_step(int i, float x, float z);
+  void foot_step_ang(int i);
   void foot_move_xyz(int i, float dx, float dy, float dz);
+  void turn_pose(float ang);
 
   void inverse_kinematics();
   float gamma_left(float dy, float dz);
@@ -96,6 +109,8 @@ private:
   float beta_rear(float vleg_len);
   float alfa_front(float dx, float beta, float vleg_len);
   float alfa_rear(float dx, float beta, float vleg_len);
+
+  void pause();
 
 public:
   ~QuadrupedRobot();
@@ -109,6 +124,8 @@ public:
   void bot_rest();
   void bot_stand();
   void bot_walk();
+  void bot_turn_right();
+  void bot_turn_left();
 };
 
 #endif
