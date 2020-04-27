@@ -6,12 +6,11 @@
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 
 // our servo # counter
-uint8_t servonum = 5;
+uint8_t servonum = 0;
 
 void setup() {
   Serial.begin(9600);
   Serial.println("16 channel Servo test!");
-
   pwm.begin();
   pwm.setPWMFreq(50);  // Analog servos run at ~60 Hz updates
 }
@@ -38,8 +37,8 @@ void writeServo(uint8_t n,uint8_t angle){
   setServoPulse(n,pulse);
 }
 String inString = "";
-void loop() {
-  
+
+void loop() {  
   if (Serial.available() > 0) {
     if (Serial.peek() != '\n') {
       inString += (char)Serial.read();
